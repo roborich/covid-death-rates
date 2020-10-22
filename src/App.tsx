@@ -49,7 +49,7 @@ export default function App() {
           </h1>
           <h4>
             <div>
-              {100 - hospitalizationRate.toFixed(4)}% non-hospitalization rate
+              {(100 - hospitalizationRate).toFixed(4)}% non-hospitalization rate
             </div>
             <div>{hospitalizationRate.toFixed(4)}% hospitalization rate</div>
           </h4>
@@ -61,7 +61,7 @@ export default function App() {
             textAlign: "center",
             flex: 1,
             paddingTop: "32px",
-            height: "500px"
+            height: "500px",
           }}
         >
           <Slider value={range} onChange={setRange} data={data} />
