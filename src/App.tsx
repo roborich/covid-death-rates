@@ -40,11 +40,14 @@ export default function App() {
   const deathRate = totalsSinceDate.death / totalsSinceDate.positive;
   const hospitalizationRate =
     totalsSinceDate.hospitalized / totalsSinceDate.positive;
-
+  const SOURCE = 'https://covidtracking.com/';
   return (
     <div className="App">
       <h1>COVID-19 US Death & Hospitalization Rates</h1>
-      <div style={{ display: 'flex', width: '100vw' }}>
+      <div>
+        Data source: <a href={SOURCE}>{SOURCE}</a> (updated daily)
+      </div>
+      <div style={{ display: 'flex', width: '100vw', marginTop: '32px' }}>
         <div style={{ flex: '1 1 auto', width: '50vw' }}>
           <Title range={range} readableDate={readableDate} />
           <div>

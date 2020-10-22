@@ -17,5 +17,5 @@ html {
 .App {
   box-sizing: border-box;
   padding: 16px;
-  font-size: 2.8vw;
+  font-size: min(2.8vw, 20px);
 }
