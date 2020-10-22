@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./styles.css";
 import { useData } from "./data";
 import { getDataSince, getReadableDate } from "./util";
@@ -6,6 +6,12 @@ import { Slider } from "./Slider";
 export default function App() {
   const data = useData();
   const [range, setRange] = useState(0);
+  useEffect(() => {
+    const initialIndex = data.findIndex(({ date }) => date === 20200801);
+    if (initialIndex !== -1) {
+      setRange(data.length - initialIndex);
+    }
+  }, [data]);
   const index = data.length - range;
   const [readableDate, totalsSinceDate] = useMemo(() => {
     const sinceDate = data[index]?.date;
@@ -61,7 +67,7 @@ export default function App() {
             textAlign: "center",
             flex: 1,
             paddingTop: "32px",
-            height: "500px",
+            height: "500px"
           }}
         >
           <Slider value={range} onChange={setRange} data={data} />
