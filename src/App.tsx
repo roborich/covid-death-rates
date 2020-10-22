@@ -37,9 +37,9 @@ export default function App() {
     return <div>loading...</div>;
   }
 
-  const deathRate = totalsSinceDate.death / totalsSinceDate.positive;
+  const deathRate = 100 * (totalsSinceDate.death / totalsSinceDate.positive);
   const hospitalizationRate =
-    totalsSinceDate.hospitalized / totalsSinceDate.positive;
+    100 * (totalsSinceDate.hospitalized / totalsSinceDate.positive);
   const SOURCE = 'https://covidtracking.com/';
   return (
     <div className="App">
