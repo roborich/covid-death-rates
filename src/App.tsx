@@ -1,8 +1,23 @@
-import React, { useEffect, useMemo, useState } from "react";
-import "./styles.css";
-import { useData } from "./data";
-import { getDataSince, getReadableDate } from "./util";
-import { Slider } from "./Slider";
+import React, { useEffect, useMemo, useState, FC } from 'react';
+import './styles.css';
+import { useData } from './data';
+import { getDataSince, getReadableDate } from './util';
+import { Slider } from './Slider';
+
+const Title: FC<{ range: number; readableDate: string }> = ({
+  range,
+  readableDate,
+}) => {
+  if (range < 2) {
+    return <h2>All Time</h2>;
+  }
+  return (
+    <h2>
+      Using only data since <br />
+      {readableDate}
+    </h2>
+  );
+};
 export default function App() {
   const data = useData();
   const [range, setRange] = useState(0);
@@ -17,32 +32,33 @@ export default function App() {
     const sinceDate = data[index]?.date;
     return [getReadableDate(sinceDate), getDataSince(sinceDate, data)] as const;
   }, [data, index]);
+
   if (data.length === 0) {
     return <div>loading...</div>;
   }
+
   const deathRate = totalsSinceDate.death / totalsSinceDate.positive;
   const hospitalizationRate =
     totalsSinceDate.hospitalized / totalsSinceDate.positive;
+
   return (
     <div className="App">
-      <div style={{ display: "flex" }}>
-        <div>
-          <h1>Covid-19 Death/Hospitalization Rates</h1>
-          <h2>
-            {range < 2 ? "All Time" : `Using only data since ${readableDate}`}
-          </h2>
+      <h1>COVID-19 US Death & Hospitalization Rates</h1>
+      <div style={{ display: 'flex', width: '100vw' }}>
+        <div style={{ flex: '1 1 auto', width: '50vw' }}>
+          <Title range={range} readableDate={readableDate} />
           <div>
-            Total Positive Cases: {totalsSinceDate.positive?.toLocaleString()}
+            Positive Cases: {totalsSinceDate.positive?.toLocaleString()}
           </div>
           <div>
-            Total Hospitalized: {totalsSinceDate.hospitalized?.toLocaleString()}
+            Hospitalized: {totalsSinceDate.hospitalized?.toLocaleString()}
           </div>
-          <div>Total Deaths: {totalsSinceDate.death?.toLocaleString()}</div>
+          <div>Deaths: {totalsSinceDate.death?.toLocaleString()}</div>
           <h2>COVID positive individuals have a:</h2>
           <h1>
-            {" "}
+            {' '}
             1 in {Math.round(1 / (deathRate / 100)).toLocaleString()} chance of
-            Death
+            death
           </h1>
           <h4>
             <div>{(100 - deathRate).toFixed(4)}% survival rate</div>
@@ -50,8 +66,8 @@ export default function App() {
           </h4>
 
           <h1>
-            1 in {Math.round(1 / (hospitalizationRate / 100)).toLocaleString()}{" "}
-            chance of Hospitalization
+            1 in {Math.round(1 / (hospitalizationRate / 100)).toLocaleString()}{' '}
+            chance of being hospitalized
           </h1>
           <h4>
             <div>
@@ -62,12 +78,9 @@ export default function App() {
         </div>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-around",
-            textAlign: "center",
-            flex: 1,
-            paddingTop: "32px",
-            height: "500px"
+            display: 'flex',
+            flex: '0 0 160px',
+            height: '500px',
           }}
         >
           <Slider value={range} onChange={setRange} data={data} />

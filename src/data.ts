@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 export interface CovidHistoricData {
   date: number;
@@ -28,8 +28,8 @@ export interface CovidHistoricData {
   hash: string;
 }
 export const getDailyData = (): Promise<CovidHistoricData[]> =>
-  fetch("https://api.covidtracking.com/v1/us/daily.json").then((data) =>
-    data.json()
+  fetch('https://api.covidtracking.com/v1/us/daily.json').then((data) =>
+    data.json(),
   );
 
 export const useData = () => {

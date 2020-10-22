@@ -1,8 +1,8 @@
-import React, { FC } from "react";
-import styled from "styled-components";
-import { CovidHistoricData } from "./data";
-import { Slider as MUISlider } from "@material-ui/core";
-import { getYearMonthDay } from "./util";
+import React, { FC } from 'react';
+import styled from 'styled-components';
+import { CovidHistoricData } from './data';
+import { Slider as MUISlider } from '@material-ui/core';
+import { getYearMonthDay } from './util';
 
 const getMarks = (data: CovidHistoricData[]) => {
   type Mark = { value: number; label: string };
@@ -16,10 +16,10 @@ const getMarks = (data: CovidHistoricData[]) => {
       ...acc,
       {
         value: index,
-        label: new Date(year, month, day).toLocaleString("default", {
-          month: "long"
-        })
-      }
+        label: new Date(year, month, day).toLocaleString('default', {
+          month: 'long',
+        }),
+      },
     ];
   }, []);
 };
@@ -30,7 +30,7 @@ interface SliderProps {
   onChange: (value: number) => void;
 }
 
-const YELLOW = " linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)";
+const YELLOW = ' linear-gradient( 135deg, #FDEB71 10%, #F8D800 100%)';
 const SliderWrapper = styled.div`
   min-height: 20vh;
   width: 20vh;
@@ -55,7 +55,7 @@ const SliderWrapper = styled.div`
 
     .MuiSlider-markLabel {
       left: 42px;
-      font-family: "Lexend Exa", sans-serif;
+      font-family: 'Lexend Exa', sans-serif;
     }
 
     .MuiSlider-thumb {
@@ -79,7 +79,7 @@ export const Slider: FC<SliderProps> = ({ value, onChange, data }) => {
   return (
     <SliderWrapper>
       <MUISlider
-        value={data.length - value}
+        value={data.length - value - 1}
         orientation="vertical"
         onChange={handleChange}
         marks={marks}
